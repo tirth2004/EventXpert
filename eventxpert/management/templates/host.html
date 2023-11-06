@@ -1,6 +1,13 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1> Host body </h1>
+    <h1>Event List</h1>
+    <ul>
+        {% for event in events %}
+        <li><a href="{% url 'event-detail' event.pk %}">{{ event.event_name }}</a></li>
+        {% endfor %}
+    </ul>
 
+    <!-- Add a button to create an event -->
+    <a href="{% url 'create-event' %}" class="btn btn-primary">Create Event</a>
 {% endblock %}

@@ -8,9 +8,8 @@
             padding: 0;
         }
 
-        li {
+        .category_list{
             margin-bottom: 10px;
-            background-color: #f9f9f9;
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -21,10 +20,11 @@
     {% if category_list %}
         <ul>
             {% for category in category_list %}
-                <li>{{ category.category_name }}</li>
+                <li class = "category_list">{{ category.category_name }}</li>
             {% endfor %}
         </ul>
     {% else %}
         <p>There are no categories.</p>
     {% endif %}
+    <a href="{% url 'category-create' %}" class="btn btn-primary create-button">Create Category</a>
 {% endblock %}

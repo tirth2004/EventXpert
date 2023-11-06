@@ -12,10 +12,11 @@ urlpatterns += [
     path('category/<int:pk>/delete/', views.CategoryDelete.as_view(), name='category-delete'),
 ]
 urlpatterns +=[
-    path('host/', views.organisation_form_view, name = 'host'),
+    path('host/create_event', views.organisation_form_view, name = 'create-event'),
     path('host/detail/', views.event_list_view),
     path('student/<int:pk>/', views.EventDetailView.as_view(), name='event-detail'),
     path('student/<int:event_id>/register/', register_for_event, name='register-for-event'),
+    path('host/event/detailed_view', views.host_event_detailed_view, name="host_event_detailed_view"),
 
 
 

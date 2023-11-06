@@ -75,22 +75,22 @@ WSGI_APPLICATION = "eventxpert.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # "default": {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'event',
-    #     'USER': 'root',
-    #     'PASSWORD': 'Tirth@2004',
-    #     'HOST':'localhost',
-    #     'PORT':'3306',
-    # },
-    'default': {
+    "default": {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'eventx',
-        'USER': 'Samarth',
-        'PASSWORD': 'hello',
+        'NAME': 'event',
+        'USER': 'root',
+        'PASSWORD': 'Tirth@2004',
         'HOST':'localhost',
         'PORT':'3306',
-    }
+    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'eventx',
+    #     'USER': 'Samarth',
+    #     'PASSWORD': 'hello',
+    #     'HOST':'localhost',
+    #     'PORT':'3306',
+    # }
 }
 
 

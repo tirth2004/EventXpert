@@ -24,8 +24,8 @@ def student(request):
     return render(request, 'student.html', context=context)
 
 def host(request):
-    context = {}
-    return render(request, 'host.html', context=context)
+    events = OrganisationEvent.objects.all()  # Fetch all events from the database
+    return render(request, 'host.html', {'events': events})
 
 def permission_denied(request):
     context={}
@@ -192,6 +192,9 @@ def register_for_event(request, event_id):
     #     messages.success(request, 'Thank you for registering!') 
     #     return redirect('registration/success/', pk=pk)
 
+def host_event_detailed_view(request):
+    events = OrganisationEvent.objects.all()  # Fetch all events from the database
+    return render(request, 'host_event_detail_view.html', {'events': events})
 
 
 
