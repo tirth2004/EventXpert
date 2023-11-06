@@ -1,7 +1,20 @@
 from django.urls import path
 from . import views
-
+from .views import register_for_event
 urlpatterns = [
-    path('student/', views.student, name = 'student'),
-    path('host/', views.host, name = 'host'),
+    path('student/', views.event_list_view, name = 'event'),
+    path('category/',views.CategoryListView.as_view(), name='category')
 ]
+urlpatterns += [
+    path('category/create/', views.CategoryCreate.as_view(), name='category-create'),
+    path('category/<int:pk>/update/', views.CategoryUpdate.as_view(), name='category-update'),
+    path('category/<int:pk>/delete/', views.CategoryDelete.as_view(), name='category-delete'),
+]
+urlpatterns +=[
+    path('host/', views.organisation_form_view, name = 'host'),
+    path('host/detail/', views.event_list_view),
+    path('student/<int:pk>/', views.EventDetailView.as_view(), name='event-detail'),
+    path('student/<int:event_id>/register/', register_for_event, name='register-for-event'),
+]
+
+

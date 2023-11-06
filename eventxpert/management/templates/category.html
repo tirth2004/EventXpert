@@ -1,0 +1,30 @@
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+    <h1>Category List</h1>
+    {% if category_list %}
+        <ul>
+            {% for category in category_list %}
+                <li>{{ category.category_name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no categories.</p>
+    {% endif %}
+{% endblock %}
