@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.views.generic import RedirectView
 from .views import register_for_event
 urlpatterns = [
     path('student/', views.event_list_view, name = 'event'),
@@ -15,6 +16,15 @@ urlpatterns +=[
     path('host/detail/', views.event_list_view),
     path('student/<int:pk>/', views.EventDetailView.as_view(), name='event-detail'),
     path('student/<int:event_id>/register/', register_for_event, name='register-for-event'),
+
+
+
+    path('student/', views.student, name = 'student'),
+    path('host/', views.host, name = 'host'),
+    path("register/", views.register, name="register"),
+    path("login/", views.login, name="login"),
+    path("login/student", views.student_login, name="student_login"),
+    path("login/host", views.host_login, name="host_login"),
+    path("permission_denied", views.permission_denied, name="permission_denied"),
+    path('', views.login, name="login" ),
 ]
-
-
