@@ -37,7 +37,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect('http://127.0.0.1:8000/management/login/student')
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
