@@ -1,0 +1,10 @@
+{% extends "base_generic_student.html" %}
+
+{% block content %}
+    <h1>Registered Events</h1>
+    <ul>
+        {% for registration in registered_events %}
+            <li><a href="{% url 'event-detail' registration.event.pk %}">{{ registration.event.event_name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

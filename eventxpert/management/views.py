@@ -20,8 +20,8 @@ from django.http import HttpResponse
 
 # Create your views here.
 def student(request):
-    context = {}
-    return render(request, 'student.html', context=context)
+    events = OrganisationEvent.objects.all()  # Fetch all events from the database
+    return render(request, 'event_list.html', {'events': events})
 
 def host(request):
     events = OrganisationEvent.objects.all()  # Fetch all events from the database
@@ -151,15 +151,33 @@ def event_list_view(request):
     events = OrganisationEvent.objects.all()  # Fetch all events from the database
     return render(request, 'event_list.html', {'events': events})
 
-class EventDetailView(generic.DetailView):
+from django.views.generic import DetailView
+from .models import OrganisationEvent, EventRegistration
+
+class EventDetailView(DetailView):
     model = OrganisationEvent
     template_name = 'event_details.html'
+    context_object_name = 'object'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         event = self.get_object()
-        context['registered_students_count'] = event.registered_students
+        registered_students_count = EventRegistration.objects.filter(event=event).count()
+        context['registered_students_count'] = registered_students_count
         return context
+
+class EventDetailHostView(DetailView):
+    model = OrganisationEvent
+    template_name = 'event_details_host.html'
+    context_object_name = 'object'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        event = self.get_object()
+        registered_students_count = EventRegistration.objects.filter(event=event).count()
+        context['registered_students_count'] = registered_students_count
+        return context
+
     
 def register_for_event(request, event_id):
     if request.user.is_authenticated:
@@ -196,7 +214,33 @@ def host_event_detailed_view(request):
     events = OrganisationEvent.objects.all()  # Fetch all events from the database
     return render(request, 'host_event_detail_view.html', {'events': events})
 
+from .models import EventRegistration
+def student_registered_events(request):
+    student = request.user  # Assuming you are using the User model for students
+    registered_events = EventRegistration.objects.filter(student=student)
 
+    context = {
+        'registered_events': registered_events
+    }
+
+    return render(request, 'student_registered_events.html', context)
+
+from django.shortcuts import get_object_or_404, redirect
+
+
+def register_for_event(request, event_id):
+    event = get_object_or_404(OrganisationEvent, pk=event_id)
+    student = request.user  # Assuming you are using the User model for students
+
+    # Check if the student is already registered for the event
+    if EventRegistration.objects.filter(student=student, event=event).exists():
+        # You can add a message to indicate that the user is already registered
+        # or handle it as needed.
+        pass
+    else:
+        EventRegistration.objects.create(student=student, event=event)
+
+    return redirect('event')
 
 
     

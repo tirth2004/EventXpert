@@ -31,3 +31,8 @@ class Student(models.Model):
         event.registered_students += 1  # Increment the count of registered students for the event
         event.save()
 
+class EventRegistration(models.Model):
+    student = models.ForeignKey(User, on_delete=models.CASCADE)  # You can use your Student model here
+    event = models.ForeignKey(OrganisationEvent, on_delete=models.CASCADE)  # Replace 'Event' with your event model
+
+

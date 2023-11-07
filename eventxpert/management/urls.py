@@ -2,8 +2,9 @@ from django.urls import path
 from . import views
 from django.views.generic import RedirectView
 from .views import register_for_event
+from django.urls import path, include
 urlpatterns = [
-    path('student/', views.event_list_view, name = 'event'),
+    path('student/events', views.event_list_view, name = 'event'),
     path('category/',views.CategoryListView.as_view(), name='category')
 ]
 urlpatterns += [
@@ -15,9 +16,10 @@ urlpatterns +=[
     path('host/create_event', views.organisation_form_view, name = 'create-event'),
     path('host/detail/', views.event_list_view),
     path('student/<int:pk>/', views.EventDetailView.as_view(), name='event-detail'),
+    path('host/<int:pk>/', views.EventDetailHostView.as_view(), name='event-detail-host'),
     path('student/<int:event_id>/register/', register_for_event, name='register-for-event'),
     path('host/event/detailed_view', views.host_event_detailed_view, name="host_event_detailed_view"),
-
+    
 
 
     path('student/', views.student, name = 'student'),
@@ -28,4 +30,7 @@ urlpatterns +=[
     path("login/host", views.host_login, name="host_login"),
     path("permission_denied", views.permission_denied, name="permission_denied"),
     path('', views.login, name="login" ),
+    path('registered_events/', views.student_registered_events, name='student-registered-events'),
+    path('event/<int:event_id>/register/', views.register_for_event, name='register-for-event'),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]

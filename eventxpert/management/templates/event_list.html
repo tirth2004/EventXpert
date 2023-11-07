@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Event List</title>
-</head>
-<body>
+{% extends "base_generic_student.html" %}
+
+{% block content %}
     <h1>Event List</h1>
-    <ul>
+    <ul class="list-group">
         {% for event in events %}
-        <li><a href="{% url 'event-detail' event.pk %}">{{ event.event_name }}</a></li>
+            <li class="list-group-item">
+                <a href="{% url 'event-detail' event.pk %}">{{ event.event_name }}</a>
+            </li>
         {% endfor %}
-            <!-- <li>
-                <h2>{{ event.event_name }}</h2>
-                <p><strong>Date:</strong> {{ event.event_date }}</p>
-                <p><strong>Venue:</strong> {{ event.venue }}</p>
-                <p><strong>Description:</strong> {{ event.description }}</p>
-                <p><strong>Category:</strong> {{ event.category }}</p>
-            </li> -->
-       
     </ul>
-</body>
-</html>
+{% endblock %}
